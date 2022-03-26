@@ -5,7 +5,6 @@ import 'package:auth_repository/src/failures/log_out_failure.dart';
 import 'package:auth_repository/src/failures/sign_up_with_email_and_password_failure.dart';
 import 'package:auth_repository/src/models/user.dart';
 import 'package:cache/cache.dart';
-import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:meta/meta.dart';
 
@@ -53,8 +52,6 @@ class AuthRepository {
       //   email: email,
       //   password: password,
       // );
-    } on FirebaseAuthException catch (e) {
-      throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
       throw const SignUpWithEmailAndPasswordFailure();
     }
@@ -69,8 +66,6 @@ class AuthRepository {
   }) async {
     try {
       return Future.delayed(const Duration(seconds: 1));
-    } on FirebaseAuthException catch (e) {
-      throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
       throw const LogInWithEmailAndPasswordFailure();
     }
